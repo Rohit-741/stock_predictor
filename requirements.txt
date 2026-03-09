@@ -1,0 +1,10 @@
+numpy
+pandas
+yfinance
+feedparser
+pytz
+matplotlib
+scikit-learn
+tensorflow
+transformers
+forex_python
