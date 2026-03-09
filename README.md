@@ -1,10 +1,10 @@
-# stock\_predictor
+# stock_predictor
 
-\# Stock Prediction using Market Sentiment and Technical Indicators
+# Stock Prediction using Market Sentiment and Technical Indicators
 
 
 
-\## Overview
+## Overview
 
 
 
@@ -20,15 +20,15 @@ The model uses technical indicators such as:
 
 
 
-\- RSI
+- RSI
 
-\- ADX
+- ADX
 
-\- Support
+- Support
 
-\- Resistance
+- Resistance
 
-\- Trend State
+- Trend State
 
 
 
@@ -40,17 +40,17 @@ These features are combined with news sentiment to predict future stock movement
 
 
 
-\## Features
+## Features
 
 
 
-\- Automatic stock data download
+- Automatic stock data download
 
-\- News sentiment analysis using ProsusAI FinBERT
+- News sentiment analysis using ProsusAI FinBERT
 
-\- Technical indicator calculation
+- Technical indicator calculation
 
-\- LSTM prediction model using tensorflow
+- LSTM prediction model using tensorflow
 
 
 
@@ -58,7 +58,7 @@ These features are combined with news sentiment to predict future stock movement
 
 
 
-\## News Sentiment Analysis
+## News Sentiment Analysis
 
 
 
@@ -70,11 +70,11 @@ The model is accessed through the HuggingFace transformers library and is specif
 
 
 
-\- Positive
+- Positive
 
-\- Negative
+- Negative
 
-\- Neutral
+- Neutral
 
 
 
@@ -82,7 +82,7 @@ The model is accessed through the HuggingFace transformers library and is specif
 
 
 
-\## Installation
+## Installation
 
 
 
@@ -92,7 +92,7 @@ Clone the repository:
 
 ```
 
-git clone https://github.com/Rohit-741/stock\_predictor.git
+git clone https://github.com/Rohit-741/stock_predictor.git
 
 ```
 
@@ -114,7 +114,7 @@ pip install -r requirements.txt
 
 
 
-\## Usage
+## Usage
 
 
 
@@ -124,7 +124,7 @@ Run the main script:
 
 ```
 
-python stock\_prediction.py
+python stock_prediction.py
 
 ```
 
@@ -134,39 +134,13 @@ The script will:
 
 
 
-1\. Download stock data
+1. Download stock data
 
-2\. Perform sentiment analysis
+2. Perform sentiment analysis
 
-3\. Compute technical indicators
+3. Compute technical indicators
 
-4\. Train the prediction model
-
-
-
----
-
-
-
-\## Technologies Used
-
-
-
-\- Python
-
-\- yfinance
-
-\- pandas
-
-\- scikit-learn
-
-\- numpy
-
-\- tensorflow
-
-\- transformers
-
-\- FinBERT (ProsusAI financial sentiment model)
+4. Train the prediction model
 
 
 
@@ -174,7 +148,33 @@ The script will:
 
 
 
-\## Project Status
+## Technologies Used
+
+
+
+- Python
+
+- yfinance
+
+- pandas
+
+- scikit-learn
+
+- numpy
+
+- tensorflow
+
+- transformers
+
+- FinBERT (ProsusAI financial sentiment model)
+
+
+
+---
+
+
+
+## Project Status
 
 
 
@@ -192,11 +192,11 @@ Results and accuracy are subject to change as improvements are made.
 
 
 
-\## Future Improvements
+## Future Improvements
 
 
 
-\- Additional technical indicators
+- Additional technical indicators
 
 
 
@@ -204,7 +204,7 @@ Results and accuracy are subject to change as improvements are made.
 
 
 
-\## License
+## License
 
 
 
