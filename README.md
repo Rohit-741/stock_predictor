@@ -142,6 +142,8 @@ The script will:
 
 4. Train the prediction model
 
+5. Save the plot and predicted outcome in the project folder under ticker symbol with the last working date
+
 
 
 ---

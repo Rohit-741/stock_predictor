@@ -9,6 +9,7 @@ import pytz
 import os
 import matplotlib.pyplot as plt
 from forex_python.converter import CurrencyRates
+from pathlib import Path
 
 from sklearn.metrics import mean_absolute_error
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
@@ -194,6 +195,8 @@ def lstm_model(window, feature_len):
     return model_lstm
 
 def main():
+    current_dir = Path(__file__).parent
+
     t = input("Enter a valid ticker (within quotes), E.g.: hdb: ")
     stock = yf.Ticker(t)
     company = stock.info.get("longName", t)
@@ -202,6 +205,9 @@ def main():
         c = 1
     else:
         c = 2
+
+    stock_store_path = Path(os.path.join(current_dir, t))
+    stock_store_path.mkdir(exist_ok=True)
 
     print(f"Stock prediction analysis for {company} running...")
     print(f"Country: ", country)
@@ -237,7 +243,7 @@ def main():
 
     window = 60
     target = 7
-    epochs = 200
+    epochs = 50
 
     price_scaler = MinMaxScaler()
     volume_scaler = MinMaxScaler()
@@ -284,14 +290,21 @@ def main():
     for i in range(target):
         close.append((close[-target] * y_pred[i]) + close[-target])
 
+    stock_store_date_path = os.path.join(stock_store_path, f"{str(company_df["Date"].iloc[-1]).split(" ")[0]}.txt")
+    if os.path.exists(stock_store_date_path):
+        os.remove(stock_store_date_path)
+    with open(stock_store_date_path, 'w') as f:
+            f.write(f"{country}\n")
+            for val in close[-target:]:
+                f.write(f"{val}\n")
+
     # Plotting
-    close_plot = close[-37:]
+    close_plot = close[-30 - target:]
     x_plot = range(1, len(close_plot) + 1)
     plt.figure(figsize=(16, 9))
     plt.title(f"{company} stock closing price prediction for the next 7 days")
-    plt.plot(x_plot, close_plot, label="Closing prices (last 30 days)", alpha=0.5)
-    plt.plot(x_plot[-8:], close_plot[-8:], color="green", label="Predicted closing prices", alpha=0.7)
-    vibgyor = ["red", "orange", "gold", "green", "blue", "indigo", "violet"]
+    plt.plot(x_plot, close_plot, color="grey", label="Closing prices (last 30 days)", alpha=0.5)
+    plt.plot(x_plot[-8:], close_plot[-8:], color="black", label="Predicted closing prices", alpha=0.5)
     if c == 1:
         rate = CurrencyRates().get_rate("USD", "INR")
         currency = "₹"
@@ -300,8 +313,18 @@ def main():
         currency = "$"
     for i in range(target, 0, -1):
         value = close_plot[-i]
-        plt.scatter(x_plot[-i], value, color=vibgyor[i - 1], label=f"{currency}{(value * rate):.2f}", s=100)
+        prev_value = close_plot[-i-1]
+        if value > prev_value:
+            plt.scatter(x_plot[-i], value, marker="^", color="green", label=f"{currency}{(value * rate):.2f}", s=100)
+        elif value < prev_value:
+            plt.scatter(x_plot[-i], value, marker="v", color="red", label=f"{currency}{(value * rate):.2f}", s=100)
+        else:
+            plt.scatter(x_plot[-i], value, color="blue", label=f"{currency}{(value * rate):.2f}", s=100)
     plt.legend()
+    stock_store_plot_path = os.path.join(stock_store_path, f"{str(company_df["Date"].iloc[-1]).split(" ")[0]}.png")
+    if os.path.exists(stock_store_plot_path):
+        os.remove(stock_store_plot_path)
+    plt.savefig(stock_store_plot_path, dpi=300)
     plt.show()
 
 if __name__ == "__main__":
